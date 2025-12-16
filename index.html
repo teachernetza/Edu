@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Netza - Clases Individuales de Inglés</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+    
+    .font-heading {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .font-body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .nav-link {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .btn-primary {
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(92, 31, 42, 0.4);
+    }
+
+    .page-transition {
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="font-body h-full w-full">
+  <div id="root" class="h-full w-full overflow-auto"></div>
+  <script>
+    const defaultConfig = {
+      background_color: "#f5f1e8",
+      navy_color: "#1a2332",
+      wine_color: "#5c1f2a",
+      text_color: "#2d3748",
+      accent_color: "#ffffff",
+      font_family: "Inter",
+      font_size: 16,
+      hero_main_message: "Clases individuales de inglés académico y profesional",
+      hero_subtitle: "Aprende inglés de forma clara, práctica y sin presión. Programas estructurados para adolescentes y adultos con objetivos académicos y profesionales.",
+      whatsapp_cta: "Escríbeme por WhatsApp para horarios y precios",
+      about_intro: "Licenciado en Ciencias de la Educación, con 6 años de experiencia enseñando inglés a adolescentes y adultos.",
+      classes_intro: "Todas las clases son individuales y personalizadas según tus objetivos y nivel actual.",
+      contact_main_message: "¿Listo para empezar? Escríbeme por WhatsApp y pregunta por los horarios y precios disponibles.",
+      contact_note: "Los precios varían según el programa y la modalidad (online o presencial)."
+    };
+
+    let currentPage = 'home';
+
+    const whatsappNumber = '';
+
+    const beginnerPrograms = [
+      { name: "English Basics & Survival English", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22English%20Basics%20%26%20Survival%20English%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Everyday Vocabulary", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Everyday%20Vocabulary%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Basic Grammar Foundations", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Basic%20Grammar%20Foundations%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Simple Conversations", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Simple%20Conversations%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Pronunciation Basics", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Pronunciation%20Basics%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Listening for Beginners", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20for%20Beginners%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Reading Short Texts", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Reading%20Short%20Texts%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Writing Simple Sentences", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Writing%20Simple%20Sentences%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Confidence in English", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Confidence%20in%20English%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
+    ];
+
+    const intermediatePrograms = [
+      { name: "Grammar in Context", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Grammar%20in%20Context%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Real-Life Conversations", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Real-Life%20Conversations%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Listening & Comprehension", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20%26%20Comprehension%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Functional Writing", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Functional%20Writing%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Pronunciation Improvement", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Pronunciation%20Improvement%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Vocabulary Expansion", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Vocabulary%20Expansion%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Speaking Fluency", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Speaking%20Fluency%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Reading for Meaning", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Reading%20for%20Meaning%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Intermediate Review & Practice", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Intermediate%20Review%20%26%20Practice%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
+    ];
+
+    const advancedPrograms = [
+      { name: "Advanced Speaking Skills", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Advanced%20Speaking%20Skills%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Academic English", duration: "6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Academic%20English%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Professional English", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Professional%20English%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "TOEFL-style Practice", duration: "6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22TOEFL-style%20Practice%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Advanced Grammar", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Advanced%20Grammar%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Listening to Native Speakers", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20to%20Native%20Speakers%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Debate & Argumentation", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Debate%20%26%20Argumentation%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Writing for Work & Study", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Writing%20for%20Work%20%26%20Study%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Fluency & Precision", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Fluency%20%26%20Precision%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
+    ];
+
+    function getWhatsAppLink(level, programName) {
+      const messages = {
+        'Principiante': `Hola Teacher Netza, me interesa el programa Principiante – ${programName}. ¿Podrías darme información sobre horarios y precios?`,
+        'Intermedio': `Hola Teacher Netza, me interesa el programa Intermedio – ${programName}. ¿Podrías darme información sobre horarios y precios?`,
+        'Avanzado': `Hola Teacher Netza, me interesa el programa Avanzado – ${programName}. ¿Podrías darme información sobre horarios y precios?`
+      };
+      return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messages[level])}`;
+    }
+
+    function showPage(pageName) {
+      currentPage = pageName;
+      const pages = ['home', 'about', 'classes', 'beginner', 'intermediate', 'advanced', 'contact'];
+      pages.forEach(page => {
+        const pageElement = document.getElementById(`page-${page}`);
+        if (pageElement) {
+          if (page === pageName) {
+            pageElement.style.display = 'block';
+            pageElement.classList.add('page-transition');
+          } else {
+            pageElement.style.display = 'none';
+          }
+        }
+      });
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const linkPage = link.getAttribute('data-page');
+        if (linkPage === pageName) {
+          link.style.fontWeight = '600';
+          link.style.opacity = '1';
+        } else {
+          link.style.fontWeight = '400';
+          link.style.opacity = '0.7';
+        }
+      });
+
+      window.scrollTo(0, 0);
+    }
+
+    async function onConfigChange(config) {
+      const root = document.getElementById('root');
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const navyColor = config.navy_color || defaultConfig.navy_color;
+      const wineColor = config.wine_color || defaultConfig.wine_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      root.style.backgroundColor = backgroundColor;
+      root.style.color = textColor;
+      root.style.fontFamily = `${customFont}, 'Inter', sans-serif`;
+      
+      const heroMessage = document.getElementById('hero-main-message');
+      if (heroMessage) {
+        heroMessage.textContent = config.hero_main_message || defaultConfig.hero_main_message;
+        heroMessage.style.color = navyColor;
+        heroMessage.style.fontSize = `${baseSize * 2}px`;
+      }
+      
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      if (heroSubtitle) {
+        heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+        heroSubtitle.style.color = textColor;
+        heroSubtitle.style.fontSize = `${baseSize * 1.125}px`;
+      }
+      
+      const ctaButtons = document.querySelectorAll('.cta-button');
+      ctaButtons.forEach(btn => {
+        btn.textContent = config.whatsapp_cta || defaultConfig.whatsapp_cta;
+        btn.style.backgroundColor = wineColor;
+        btn.style.fontSize = `${baseSize * 1.125}px`;
+      });
+      
+      const aboutIntro = document.getElementById('about-intro');
+      if (aboutIntro) {
+        aboutIntro.textContent = config.about_intro || defaultConfig.about_intro;
+        aboutIntro.style.fontSize = `${baseSize * 1.25}px`;
+      }
+      
+      const classesIntro = document.getElementById('classes-intro');
+      if (classesIntro) {
+        classesIntro.textContent = config.classes_intro || defaultConfig.classes_intro;
+        classesIntro.style.fontSize = `${baseSize * 1.125}px`;
+      }
+      
+      const contactMessage = document.getElementById('contact-main-message');
+      if (contactMessage) {
+        contactMessage.textContent = config.contact_main_message || defaultConfig.contact_main_message;
+        contactMessage.style.fontSize = `${baseSize * 1.25}px`;
+      }
+      
+      const contactNote = document.getElementById('contact-note');
+      if (contactNote) {
+        contactNote.textContent = config.contact_note || defaultConfig.contact_note;
+        contactNote.style.fontSize = `${baseSize}px`;
+      }
+      
+      const pageTitles = document.querySelectorAll('.page-title');
+      pageTitles.forEach(title => {
+        title.style.color = navyColor;
+        title.style.fontSize = `${baseSize * 2.25}px`;
+      });
+      
+      const cards = document.querySelectorAll('.info-card');
+      cards.forEach(card => {
+        card.style.backgroundColor = accentColor;
+        card.style.borderColor = wineColor;
+      });
+      
+      const levelCards = document.querySelectorAll('.level-card');
+      levelCards.forEach(card => {
+        card.style.backgroundColor = accentColor;
+        card.style.borderColor = navyColor;
+      });
+      
+      const programButtons = document.querySelectorAll('.program-button');
+      programButtons.forEach(btn => {
+        btn.style.backgroundColor = wineColor;
+        btn.style.fontSize = `${baseSize}px`;
+      });
+      
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.style.color = backgroundColor;
+        link.style.fontSize = `${baseSize * 0.9375}px`;
+      });
+      
+      const nav = document.querySelector('nav');
+      if (nav) {
+        nav.style.backgroundColor = navyColor;
+      }
+      
+      const footer = document.getElementById('footer');
+      if (footer) {
+        footer.style.backgroundColor = navyColor;
+        footer.style.fontSize = `${baseSize * 0.875}px`;
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              window.elementSdk.setConfig({ accent_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.navy_color || defaultConfig.navy_color,
+            set: (value) => {
+              config.navy_color = value;
+              window.elementSdk.setConfig({ navy_color: value });
+            }
+          },
+          {
+            get: () => config.wine_color || defaultConfig.wine_color,
+            set: (value) => {
+              config.wine_color = value;
+              window.elementSdk.setConfig({ wine_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["hero_main_message", config.hero_main_message || defaultConfig.hero_main_message],
+        ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+        ["whatsapp_cta", config.whatsapp_cta || defaultConfig.whatsapp_cta],
+        ["about_intro", config.about_intro || defaultConfig.about_intro],
+        ["classes_intro", config.classes_intro || defaultConfig.classes_intro],
+        ["contact_main_message", config.contact_main_message || defaultConfig.contact_main_message],
+        ["contact_note", config.contact_note || defaultConfig.contact_note]
+      ]);
+    }
+
+    function initPage() {
+      const root = document.getElementById('root');
+      
+      root.innerHTML = `
+        <!-- Navigation -->
+        <nav class="w-full sticky top-0 z-50" style="backdrop-filter: blur(8px); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+          <div class="max-w-6xl mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+              <div class="font-heading font-bold text-2xl">Teacher Netza</div>
+              <div class="flex gap-6">
+                <button data-page="home" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Inicio</button>
+                <button data-page="about" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Sobre Mí</button>
+                <button data-page="classes" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Clases</button>
+                <button data-page="contact" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Contacto</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <!-- HOME PAGE -->
+        <div id="page-home" class="w-full">
+          <section class="w-full px-6 py-16">
+            <div class="max-w-4xl mx-auto text-center">
+              <h1 id="hero-main-message" class="font-heading font-bold mb-6 leading-tight"></h1>
+              <p id="hero-subtitle" class="mb-8 leading-relaxed"></p>
+              <a href="https://wa.me/523231116425" target="_blank" rel="noopener noreferrer" class="cta-button btn-primary inline-block text-white px-8 py-4 rounded font-semibold">
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="page-about" class="w-full" style="display: none;">
+          <section class="w-full py-16 px-6">
+            <div class="max-w-4xl mx-auto">
+              <h2 class="page-title font-heading font-bold text-center mb-12">Sobre Mí</h2>
+              
+              <div class="mb-12 text-center">
+                <h3 class="font-heading text-3xl font-semibold mb-6" style="color: #5c1f2a;">Teacher Netza</h3>
+                <p class="text-lg mb-2" style="color: #5c1f2a; font-weight: 500;">25 años</p>
+                <p id="about-intro" class="leading-relaxed"></p>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mb-12">
+                <div class="info-card p-8 rounded border-l-4">
+                  <h4 class="font-semibold text-lg mb-3">Formación Académica</h4>
+                  <ul class="space-y-2">
+                    <li class="flex items-start gap-2">
+                      <span class="font-bold">—</span>
+                      <span>Licenciado en Ciencias de la Educación</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="font-bold">—</span>
+                      <span>Técnico Profesional en Inglés</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="font-bold">—</span>
+                      <span>Nivel B2 de inglés (TOEFL)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="info-card p-8 rounded border-l-4">
+                  <h4 class="font-semibold text-lg mb-3">Experiencia</h4>
+                  <p class="mb-4"><strong>6 años</strong> enseñando inglés a adolescentes y adultos con objetivos académicos y profesionales</p>
+                </div>
+              </div>
+
+              <div class="info-card p-8 rounded border-l-4">
+                <h4 class="font-semibold text-xl mb-4">Filosofía de Enseñanza</h4>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-2">
+                    <span class="font-bold">—</span>
+                    <span><strong>Aprendizaje sin presión:</strong> Un ambiente relajado y respetuoso donde puedes avanzar a tu ritmo</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="font-bold">—</span>
+                    <span><strong>Sin ridiculización:</strong> Todos aprendemos cometiendo errores, y aquí son bienvenidos</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="font-bold">—</span>
+                    <span><strong>El error como progreso:</strong> Cada error es una oportunidad de aprender mejor</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="font-bold">—</span>
+                    <span><strong>Explicaciones claras:</strong> Te enseño de forma que realmente entiendas, no solo memorices</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- CLASSES PAGE -->
+        <div id="page-classes" class="w-full" style="display: none;">
+          <section class="w-full py-16 px-6">
+            <div class="max-w-5xl mx-auto">
+              <h2 class="page-title font-heading font-bold text-center mb-6">Clases y Programas</h2>
+              <p id="classes-intro" class="text-center mb-4 max-w-3xl mx-auto"></p>
+              
+              <div class="text-center mb-16">
+                <p class="text-lg font-semibold mb-2">Modalidades disponibles:</p>
+                <p class="text-lg">Clases online • Clases presenciales en Tepic, Santiago y Escuíndola</p>
+              </div>
+
+              <div class="grid md:grid-cols-3 gap-8">
+                <button onclick="showPage('beginner')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent">
+                  <h3 class="font-heading font-semibold text-2xl text-center mb-4 pb-4 border-b-2">Principiante</h3>
+                  <p class="text-center">Construye bases sólidas desde cero con programas estructurados</p>
+                </button>
+
+                <button onclick="showPage('intermediate')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent">
+                  <h3 class="font-heading font-semibold text-2xl text-center mb-4 pb-4 border-b-2">Intermedio</h3>
+                  <p class="text-center">Desarrolla fluidez académica y profesional con confianza</p>
+                </button>
+
+                <button onclick="showPage('advanced')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent">
+                  <h3 class="font-heading font-semibold text-2xl text-center mb-4 pb-4 border-b-2">Avanzado</h3>
+                  <p class="text-center">Domina el inglés académico y prepárate para exámenes oficiales</p>
+                </button>
+              </div>
+
+              <!-- Workshops Section -->
+              <div class="mt-20 pt-16 border-t-2" style="border-color: #1a2332;">
+                <h3 class="font-heading font-semibold text-3xl text-center mb-6" style="color: #1a2332;">Talleres / Habilidades Especiales</h3>
+                <p class="text-center text-lg mb-4 max-w-3xl mx-auto">
+                  Talleres intensivos dirigidos a estudiantes con nivel intermedio o avanzado que desean trabajar una habilidad específica del inglés.
+                </p>
+                <p class="text-center mb-12 max-w-3xl mx-auto">
+                  Son clases únicas de 2 a 4 horas, enfocadas en perfeccionar áreas concretas como pronunciación, listening, gramática avanzada o uso académico y profesional del idioma.
+                </p>
+
+                <div class="mb-12">
+                  <h4 class="font-heading font-semibold text-2xl mb-6" style="color: #5c1f2a;">Pronunciación & Speaking</h4>
+                  <div class="grid md:grid-cols-3 gap-6">
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Pronunciation Clinic</h5>
+                      <p class="text-sm mb-4">Corrección personalizada de sonidos, entonación y claridad al hablar.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Pronunciation%20Clinic%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Connected Speech & Natural Flow</h5>
+                      <p class="text-sm mb-4">Cómo unir palabras y sonar más natural al hablar.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Connected%20Speech%20%26%20Natural%20Flow%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Fluency without Panic</h5>
+                      <p class="text-sm mb-4">Estrategias para hablar con más soltura y menos bloqueos.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Fluency%20without%20Panic%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-12">
+                  <h4 class="font-heading font-semibold text-2xl mb-6" style="color: #5c1f2a;">Listening</h4>
+                  <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Listening to Real English</h5>
+                      <p class="text-sm mb-4">Entrenamiento con inglés real y velocidad natural.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Listening%20to%20Real%20English%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Understanding Native Speakers</h5>
+                      <p class="text-sm mb-4">Cómo entender hablantes nativos cuando hablan rápido.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Understanding%20Native%20Speakers%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-12">
+                  <h4 class="font-heading font-semibold text-2xl mb-6" style="color: #5c1f2a;">Gramática Avanzada</h4>
+                  <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Grammar That Actually Matters</h5>
+                      <p class="text-sm mb-4">Errores gramaticales que afectan la comunicación real.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Grammar%20That%20Actually%20Matters%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Tenses You Thought You Knew</h5>
+                      <p class="text-sm mb-4">Claridad total en tiempos verbales problemáticos.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Tenses%20You%20Thought%20You%20Knew%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-8">
+                  <h4 class="font-heading font-semibold text-2xl mb-6" style="color: #5c1f2a;">Académico & Profesional</h4>
+                  <div class="grid md:grid-cols-3 gap-6">
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Academic English Survival</h5>
+                      <p class="text-sm mb-4">Inglés para contextos académicos reales.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Academic%20English%20Survival%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Professional English for Real Situations</h5>
+                      <p class="text-sm mb-4">Inglés para trabajo, juntas y entrevistas.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Professional%20English%20for%20Real%20Situations%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+
+                    <div class="info-card p-6 rounded border-l-4">
+                      <h5 class="font-semibold text-lg mb-3">Fixing Fossilized Mistakes</h5>
+                      <p class="text-sm mb-4">Corrección de errores repetidos a lo largo del tiempo.</p>
+                      <a href="https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20taller%20%22Fixing%20Fossilized%20Mistakes%22.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor." target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                        Solicitar información por WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center p-6 rounded" style="background-color: rgba(92, 31, 42, 0.05);">
+                  <p class="text-sm opacity-75">
+                    <strong>Nota:</strong> La disponibilidad y los precios de los talleres pueden variar. Contacta por WhatsApp para información detallada sobre fechas y costos.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- BEGINNER PAGE -->
+        <div id="page-beginner" class="w-full" style="display: none;">
+          <section class="w-full py-16 px-6">
+            <div class="max-w-4xl mx-auto">
+              <h2 class="page-title font-heading font-bold text-center mb-6">Nivel Principiante</h2>
+              <p class="text-center text-lg mb-12 max-w-2xl mx-auto">
+                Programas enfocados en construir bases sólidas del inglés desde cero. Aprende gramática básica, vocabulario esencial y desarrolla confianza para comunicarte.
+              </p>
+
+              <div class="grid md:grid-cols-3 gap-6">
+                ${beginnerPrograms.map(program => `
+                  <div class="info-card p-6 rounded border-l-4">
+                    <h3 class="font-semibold text-xl mb-2">${program.name}</h3>
+                    <p class="text-sm mb-4 opacity-75">${program.duration}</p>
+                    <a href="${program.link}" target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                      Preguntar por este programa
+                    </a>
+                  </div>
+                `).join('')}
+              </div>
+
+              <div class="text-center mt-12">
+                <button onclick="showPage('classes')" class="text-lg underline opacity-70 hover:opacity-100 bg-transparent border-0 cursor-pointer">
+                  ← Volver a Clases y Programas
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- INTERMEDIATE PAGE -->
+        <div id="page-intermediate" class="w-full" style="display: none;">
+          <section class="w-full py-16 px-6">
+            <div class="max-w-4xl mx-auto">
+              <h2 class="page-title font-heading font-bold text-center mb-6">Nivel Intermedio</h2>
+              <p class="text-center text-lg mb-12 max-w-2xl mx-auto">
+                Programas diseñados para desarrollar fluidez académica y profesional. Expande tu vocabulario, mejora tu gramática y aprende a comunicarte con confianza.
+              </p>
+
+              <div class="grid md:grid-cols-3 gap-6">
+                ${intermediatePrograms.map(program => `
+                  <div class="info-card p-6 rounded border-l-4">
+                    <h3 class="font-semibold text-xl mb-2">${program.name}</h3>
+                    <p class="text-sm mb-4 opacity-75">${program.duration}</p>
+                    <a href="${program.link}" target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                      Preguntar por este programa
+                    </a>
+                  </div>
+                `).join('')}
+              </div>
+
+              <div class="text-center mt-12">
+                <button onclick="showPage('classes')" class="text-lg underline opacity-70 hover:opacity-100 bg-transparent border-0 cursor-pointer">
+                  ← Volver a Clases y Programas
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ADVANCED PAGE -->
+        <div id="page-advanced" class="w-full" style="display: none;">
+          <section class="w-full py-16 px-6">
+            <div class="max-w-4xl mx-auto">
+              <h2 class="page-title font-heading font-bold text-center mb-6">Nivel Avanzado</h2>
+              <p class="text-center text-lg mb-12 max-w-2xl mx-auto">
+                Programas avanzados enfocados en inglés académico, comunicación profesional y preparación para exámenes oficiales como TOEFL e IELTS.
+              </p>
+
+              <div class="grid md:grid-cols-3 gap-6">
+                ${advancedPrograms.map(program => `
+                  <div class="info-card p-6 rounded border-l-4">
+                    <h3 class="font-semibold text-xl mb-2">${program.name}</h3>
+                    <p class="text-sm mb-4 opacity-75">${program.duration}</p>
+                    <a href="${program.link}" target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
+                      Preguntar por este programa
+                    </a>
+                  </div>
+                `).join('')}
+              </div>
+
+              <div class="text-center mt-12">
+                <button onclick="showPage('classes')" class="text-lg underline opacity-70 hover:opacity-100 bg-transparent border-0 cursor-pointer">
+                  ← Volver a Clases y Programas
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="page-contact" class="w-full" style="display: none;">
+          <section class="w-full px-6" style="min-height: calc(100% - 140px); display: flex; align-items: center; justify-content: center; padding-top: 80px; padding-bottom: 80px;">
+            <div class="max-w-3xl mx-auto text-center">
+              <h2 class="page-title font-heading font-bold mb-8">Contacto</h2>
+              <p id="contact-main-message" class="mb-6 leading-relaxed"></p>
+              <p id="contact-note" class="mb-12 opacity-75"></p>
+              <a href="https://wa.me/523231116425" target="_blank" rel="noopener noreferrer" class="cta-button btn-primary inline-flex items-center gap-3 text-white px-10 py-4 rounded font-semibold text-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer" class="w-full py-6 px-6 text-center" style="color: #f5f1e8;">
+          <p>© 2025 Teacher Netza – Clases Individuales de Inglés</p>
+        </footer>
+      `;
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+          const page = this.getAttribute('data-page');
+          showPage(page);
+        });
+      });
+      
+      window.showPage = showPage;
+      
+      onConfigChange(window.elementSdk?.config || defaultConfig);
+      showPage('home');
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+      initPage();
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9aecdfcb00112b3d',t:'MTc2NTg3NDQwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
