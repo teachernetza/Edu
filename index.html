@@ -30,36 +30,281 @@
     }
     
     .card-hover {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .card-hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #5c1f2a, #1a2332);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
     }
     
     .card-hover:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-hover:hover::after {
+      transform: scaleX(1);
     }
     
     .btn-primary {
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(92, 31, 42, 0.4);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(92, 31, 42, 0.3), 0 0 20px rgba(92, 31, 42, 0.15);
+    }
+
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px) scale(1.01);
     }
 
     .page-transition {
-      animation: fadeIn 0.4s ease-in-out;
+      animation: fadeInUp 0.5s ease-out;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(20px);
       }
       to {
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    .fade-in-left {
+      animation: fadeInLeft 0.6s ease-out;
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .fade-in-scale {
+      animation: fadeInScale 0.5s ease-out;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .stagger-1 { animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards; }
+    .stagger-2 { animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards; }
+    .stagger-3 { animation-delay: 0.3s; opacity: 0; animation-fill-mode: forwards; }
+
+    .geometric-bg {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .geometric-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(92, 31, 42, 0.03) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .geometric-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(26, 35, 50, 0.03) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .info-card {
+      position: relative;
+      background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
+      backdrop-filter: blur(10px);
+    }
+
+    .level-card {
+      position: relative;
+      background: linear-gradient(135deg, #ffffff 0%, #fdfcfa 100%);
+    }
+
+    .microcopy {
+      font-size: 0.75rem;
+      opacity: 0.6;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .icon-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(92, 31, 42, 0.1) 0%, rgba(26, 35, 50, 0.05) 100%);
+      margin-bottom: 1rem;
+    }
+
+    /* Left Navigation Styles */
+    .left-nav-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 48px;
+      height: 48px;
+      background: #1a2332;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 4px 12px rgba(26, 35, 50, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .left-nav-toggle:hover {
+      background: #5c1f2a;
+      transform: scale(1.05);
+    }
+
+    .left-nav-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100%;
+      background: #1a2332;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1002;
+      overflow-y: auto;
+    }
+
+    .left-nav-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .left-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    .left-nav-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .left-nav-header {
+      padding: 32px 24px 24px;
+      border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+    }
+
+    .left-nav-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f5f1e8;
+      margin-bottom: 4px;
+    }
+
+    .left-nav-subtitle {
+      font-size: 0.75rem;
+      color: #f5f1e8;
+      opacity: 0.6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .left-nav-menu {
+      padding: 16px 0;
+    }
+
+    .left-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 24px;
+      color: #f5f1e8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .left-nav-item:hover {
+      background: rgba(245, 241, 232, 0.08);
+      border-left-color: rgba(92, 31, 42, 0.5);
+    }
+
+    .left-nav-item.active {
+      background: rgba(245, 241, 232, 0.12);
+      border-left-color: #5c1f2a;
+      font-weight: 600;
+    }
+
+    .left-nav-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
     }
   </style>
   <style>@view-transition { navigation: auto; }</style>
@@ -80,7 +325,7 @@
       hero_subtitle: "Aprende inglés de forma clara, práctica y sin presión. Programas estructurados para adolescentes y adultos con objetivos académicos y profesionales.",
       whatsapp_cta: "Escríbeme por WhatsApp para horarios y precios",
       about_intro: "Licenciado en Ciencias de la Educación, con 6 años de experiencia enseñando inglés a adolescentes y adultos.",
-      classes_intro: "Todas las clases son individuales y personalizadas según tus objetivos y nivel actual.",
+      classes_intro: "Todas las clases son individuales y personalizadas seg��n tus objetivos y nivel actual.",
       contact_main_message: "¿Listo para empezar? Escríbeme por WhatsApp y pregunta por los horarios y precios disponibles.",
       contact_note: "Los precios varían según el programa y la modalidad (online o presencial)."
     };
@@ -90,46 +335,46 @@
     const whatsappNumber = '';
 
     const beginnerPrograms = [
-      { name: "English Basics & Survival English", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22English%20Basics%20%26%20Survival%20English%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Everyday Vocabulary", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Everyday%20Vocabulary%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Basic Grammar Foundations", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Basic%20Grammar%20Foundations%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Simple Conversations", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Simple%20Conversations%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Pronunciation Basics", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Pronunciation%20Basics%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Listening for Beginners", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20for%20Beginners%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Reading Short Texts", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Reading%20Short%20Texts%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Writing Simple Sentences", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Writing%20Simple%20Sentences%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Confidence in English", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Confidence%20in%20English%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
+      { name: "English Basics & Survival English", duration: "4-6 semanas", description: "Aprende las bases del idioma y expresiones esenciales para situaciones cotidianas.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22English%20Basics%20%26%20Survival%20English%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Everyday Vocabulary", duration: "4-5 semanas", description: "Construye vocabulario práctico para el día a día en contextos reales.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Everyday%20Vocabulary%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Basic Grammar Foundations", duration: "5-6 semanas", description: "Domina las estructuras gramaticales fundamentales del inglés de forma clara.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Basic%20Grammar%20Foundations%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Simple Conversations", duration: "4-6 semanas", description: "Desarrolla habilidades para mantener conversaciones simples y funcionales.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Simple%20Conversations%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Pronunciation Basics", duration: "4-5 semanas", description: "Aprende a pronunciar sonidos básicos con claridad y precisión.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Pronunciation%20Basics%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Listening for Beginners", duration: "5-6 semanas", description: "Entrena tu oído para comprender inglés hablado a velocidad controlada.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20for%20Beginners%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Reading Short Texts", duration: "4-5 semanas", description: "Mejora tu comprensión de lectura con textos simples y prácticos.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Reading%20Short%20Texts%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Writing Simple Sentences", duration: "5-6 semanas", description: "Aprende a escribir oraciones simples con estructura correcta.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Writing%20Simple%20Sentences%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Confidence in English", duration: "4-6 semanas", description: "Supera el miedo a hablar y gana seguridad al comunicarte en inglés.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Confidence%20in%20English%22%20del%20nivel%20Principiante.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
     ];
 
     const intermediatePrograms = [
-      { name: "Grammar in Context", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Grammar%20in%20Context%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Real-Life Conversations", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Real-Life%20Conversations%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Listening & Comprehension", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20%26%20Comprehension%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Functional Writing", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Functional%20Writing%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Pronunciation Improvement", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Pronunciation%20Improvement%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Vocabulary Expansion", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Vocabulary%20Expansion%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Speaking Fluency", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Speaking%20Fluency%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Reading for Meaning", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Reading%20for%20Meaning%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Intermediate Review & Practice", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Intermediate%20Review%20%26%20Practice%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
+      { name: "Grammar in Context", duration: "5-6 semanas", description: "Perfecciona estructuras gramaticales aplicándolas en situaciones comunicativas reales.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Grammar%20in%20Context%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Real-Life Conversations", duration: "5-6 semanas", description: "Practica conversaciones naturales para contextos cotidianos y profesionales.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Real-Life%20Conversations%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Listening & Comprehension", duration: "4-6 semanas", description: "Mejora tu capacidad de entender inglés hablado en contextos variados.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20%26%20Comprehension%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Functional Writing", duration: "5-6 semanas", description: "Desarrolla habilidades para escribir textos prácticos con claridad y precisión.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Functional%20Writing%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Pronunciation Improvement", duration: "4-5 semanas", description: "Refina tu pronunciación para comunicarte con mayor claridad y naturalidad.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Pronunciation%20Improvement%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Vocabulary Expansion", duration: "5-6 semanas", description: "Amplía tu vocabulario para expresarte con mayor precisión y variedad.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Vocabulary%20Expansion%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Speaking Fluency", duration: "5-6 semanas", description: "Gana fluidez y confianza al expresar ideas de forma natural y espontánea.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Speaking%20Fluency%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Reading for Meaning", duration: "4-5 semanas", description: "Mejora la comprensión de textos académicos y profesionales con técnicas efectivas.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Reading%20for%20Meaning%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Intermediate Review & Practice", duration: "5-6 semanas", description: "Consolida y refuerza todo lo aprendido en el nivel intermedio.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Intermediate%20Review%20%26%20Practice%22%20del%20nivel%20Intermedio.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
     ];
 
     const advancedPrograms = [
-      { name: "Advanced Speaking Skills", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Advanced%20Speaking%20Skills%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Academic English", duration: "6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Academic%20English%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Professional English", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Professional%20English%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "TOEFL-style Practice", duration: "6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22TOEFL-style%20Practice%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Advanced Grammar", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Advanced%20Grammar%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Listening to Native Speakers", duration: "4-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20to%20Native%20Speakers%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Debate & Argumentation", duration: "4-5 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Debate%20%26%20Argumentation%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Writing for Work & Study", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Writing%20for%20Work%20%26%20Study%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
-      { name: "Fluency & Precision", duration: "5-6 semanas", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Fluency%20%26%20Precision%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
+      { name: "Advanced Speaking Skills", duration: "5-6 semanas", description: "Perfecciona tu expresión oral para comunicarte con precisión y naturalidad en cualquier contexto.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Advanced%20Speaking%20Skills%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Academic English", duration: "6 semanas", description: "Domina el inglés necesario para entornos universitarios, investigación y presentaciones académicas.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Academic%20English%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Professional English", duration: "5-6 semanas", description: "Aprende a comunicarte con efectividad en entornos laborales internacionales y reuniones de trabajo.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Professional%20English%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "TOEFL-style Practice", duration: "6 semanas", description: "Prepárate para exámenes de certificación con estrategias y práctica enfocada en formato TOEFL.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22TOEFL-style%20Practice%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Advanced Grammar", duration: "5-6 semanas", description: "Domina estructuras complejas y matices gramaticales para escribir y hablar con precisión.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Advanced%20Grammar%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Listening to Native Speakers", duration: "4-6 semanas", description: "Desarrolla comprensión auditiva avanzada para entender inglés nativo a velocidad natural.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Listening%20to%20Native%20Speakers%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Debate & Argumentation", duration: "4-5 semanas", description: "Aprende a estructurar argumentos y debatir ideas de forma persuasiva y profesional.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Debate%20%26%20Argumentation%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Writing for Work & Study", duration: "5-6 semanas", description: "Perfecciona tu escritura para ensayos académicos, reportes profesionales y comunicación formal.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Writing%20for%20Work%20%26%20Study%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" },
+      { name: "Fluency & Precision", duration: "5-6 semanas", description: "Combina fluidez natural con precisión técnica para un dominio completo del inglés.", link: "https://wa.me/523231116425?text=Hola%20Teacher%20Netza%2C%20me%20interesa%20el%20programa%20%22Fluency%20%26%20Precision%22%20del%20nivel%20Avanzado.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%2C%20por%20favor" }
     ];
 
     function getWhatsAppLink(level, programName) {
       const messages = {
         'Principiante': `Hola Teacher Netza, me interesa el programa Principiante – ${programName}. ¿Podrías darme información sobre horarios y precios?`,
         'Intermedio': `Hola Teacher Netza, me interesa el programa Intermedio – ${programName}. ¿Podrías darme información sobre horarios y precios?`,
-        'Avanzado': `Hola Teacher Netza, me interesa el programa Avanzado – ${programName}. ¿Podrías darme información sobre horarios y precios?`
+        'Avanzado': `Hola Teacher Netza, me interesa el programa Avanzado – ${programName}. ¿Podr��as darme información sobre horarios y precios?`
       };
       return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messages[level])}`;
     }
@@ -248,7 +493,7 @@
       
       const navLinks = document.querySelectorAll('.nav-link');
       navLinks.forEach(link => {
-        link.style.color = backgroundColor;
+        link.style.color = accentColor;
         link.style.fontSize = `${baseSize * 0.9375}px`;
       });
       
@@ -337,47 +582,279 @@
       const root = document.getElementById('root');
       
       root.innerHTML = `
+        <!-- Left Navigation Toggle -->
+        <div class="left-nav-toggle" id="nav-toggle">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f5f1e8" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </div>
+
+        <!-- Left Navigation Sidebar -->
+        <div class="left-nav-sidebar" id="nav-sidebar">
+          <div class="left-nav-header">
+            <div class="left-nav-title">Teacher Netza</div>
+            <div class="left-nav-subtitle">Navegación</div>
+          </div>
+          <nav class="left-nav-menu">
+            <div class="left-nav-item" data-nav-page="home">
+              <svg class="left-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              <span>Inicio</span>
+            </div>
+            <div class="left-nav-item" data-nav-page="about">
+              <svg class="left-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Sobre Mí</span>
+            </div>
+            <div class="left-nav-item" data-nav-page="classes">
+              <svg class="left-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+              </svg>
+              <span>Clases</span>
+            </div>
+            <div class="left-nav-item" data-nav-page="contact">
+              <svg class="left-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+              </svg>
+              <span>Contacto</span>
+            </div>
+          </nav>
+        </div>
+
+        <!-- Navigation Overlay -->
+        <div class="left-nav-overlay" id="nav-overlay"></div>
+
         <!-- Navigation -->
         <nav class="w-full sticky top-0 z-50" style="backdrop-filter: blur(8px); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
           <div class="max-w-6xl mx-auto px-6 py-5">
             <div class="flex justify-between items-center">
-              <div class="font-heading font-bold text-2xl">Teacher Netza</div>
+              <div style="width: 48px;"></div>
               <div class="flex gap-6">
                 <button data-page="home" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Inicio</button>
                 <button data-page="about" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Sobre Mí</button>
                 <button data-page="classes" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Clases</button>
                 <button data-page="contact" class="nav-link hover:opacity-100 cursor-pointer bg-transparent border-0">Contacto</button>
               </div>
+              <div class="font-heading font-bold text-2xl">Teacher Netza</div>
             </div>
           </div>
         </nav>
 
         <!-- HOME PAGE -->
-        <div id="page-home" class="w-full">
+        <div id="page-home" class="w-full geometric-bg">
           <section class="w-full px-6 py-16">
             <div class="max-w-4xl mx-auto text-center">
-              <h1 id="hero-main-message" class="font-heading font-bold mb-6 leading-tight"></h1>
-              <p id="hero-subtitle" class="mb-8 leading-relaxed"></p>
-              <a href="https://wa.me/523231116425" target="_blank" rel="noopener noreferrer" class="cta-button btn-primary inline-block text-white px-8 py-4 rounded font-semibold">
+              <div class="icon-circle mx-auto fade-in-scale">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <h1 id="hero-main-message" class="font-heading font-bold mb-6 leading-tight fade-in-scale"></h1>
+              <p id="hero-subtitle" class="mb-4 leading-relaxed fade-in-scale"></p>
+              <p class="microcopy mb-8 fade-in-scale">Clases 100% personalizadas</p>
+              <a href="https://wa.me/523231116425" target="_blank" rel="noopener noreferrer" class="cta-button btn-primary inline-block text-white px-8 py-4 rounded font-semibold fade-in-scale">
               </a>
+              <p class="microcopy mt-4 fade-in-scale">Contacto directo por WhatsApp</p>
+            </div>
+          </section>
+
+          <!-- Differentiation Statement -->
+          <section class="w-full px-6 py-12">
+            <div class="max-w-3xl mx-auto">
+              <div class="text-center p-10 rounded-xl fade-in-scale" style="background: rgba(26, 35, 50, 0.04); border-left: 3px solid #5c1f2a;">
+                <p class="text-xl font-medium" style="color: #1a2332; line-height: 1.6;">
+                  "No es una escuela.<br>Son clases individuales, adaptadas a ti."
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Visual Separator -->
+          <div class="w-full px-6 py-12">
+            <div class="max-w-5xl mx-auto">
+              <div style="height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(26, 35, 50, 0.12) 50%, transparent 100%);"></div>
+            </div>
+          </div>
+
+          <!-- How Classes Work Section -->
+          <section class="w-full px-6 py-20 geometric-bg">
+            <div class="max-w-5xl mx-auto">
+              <h2 class="font-heading font-bold text-center mb-4 fade-in-scale" style="font-size: 2.5rem; color: #1a2332;">Cómo funcionan las clases</h2>
+              <p class="microcopy text-center mb-16 fade-in-scale">Clase individual, enfoque personalizado</p>
+              
+              <div class="grid md:grid-cols-3 gap-10">
+                <div class="text-center fade-in-left stagger-1">
+                  <div class="icon-circle mx-auto" style="width: 72px; height: 72px; background: rgba(26, 35, 50, 0.06);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a2332" stroke-width="2">
+                      <path d="M9 11l3 3L22 4"/>
+                      <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                    </svg>
+                  </div>
+                  <h3 class="font-heading font-semibold text-2xl mt-6 mb-3" style="color: #1a2332;">1. Diagnóstico inicial</h3>
+                  <p class="text-base leading-relaxed" style="color: #2d3748; opacity: 0.85;">Evalúo tu nivel actual y tus objetivos para diseñar un plan de estudio a tu medida.</p>
+                </div>
+
+                <div class="text-center fade-in-left stagger-2">
+                  <div class="icon-circle mx-auto" style="width: 72px; height: 72px; background: rgba(26, 35, 50, 0.06);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a2332" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                      <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                  </div>
+                  <h3 class="font-heading font-semibold text-2xl mt-6 mb-3" style="color: #1a2332;">2. Plan personalizado</h3>
+                  <p class="text-base leading-relaxed" style="color: #2d3748; opacity: 0.85;">Creo un programa específico según tus necesidades académicas o profesionales.</p>
+                </div>
+
+                <div class="text-center fade-in-left stagger-3">
+                  <div class="icon-circle mx-auto" style="width: 72px; height: 72px; background: rgba(26, 35, 50, 0.06);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a2332" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                  </div>
+                  <h3 class="font-heading font-semibold text-2xl mt-6 mb-3" style="color: #1a2332;">3. Clases individuales</h3>
+                  <p class="text-base leading-relaxed" style="color: #2d3748; opacity: 0.85;">Trabajamos juntos en sesiones personalizadas, adaptadas a tu ritmo y estilo de aprendizaje.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Visual Separator -->
+          <div class="w-full px-6 py-8">
+            <div class="max-w-6xl mx-auto">
+              <div style="height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(26, 35, 50, 0.2) 50%, transparent 100%);"></div>
+            </div>
+          </div>
+
+          <!-- Target Audience Section -->
+          <section class="w-full px-6 py-16">
+            <div class="max-w-4xl mx-auto">
+              <h2 class="font-heading font-bold text-center mb-4 fade-in-scale" style="font-size: 2.5rem; color: #1a2332;">¿Para quién son estas clases?</h2>
+              <p class="microcopy text-center mb-12 fade-in-scale">Programas estructurados por objetivos</p>
+              
+              <div class="info-card p-10 rounded-lg border-l-4 fade-in-scale" style="border-color: #1a2332;">
+                <div class="space-y-6">
+                  <div class="flex items-start gap-4">
+                    <div style="min-width: 32px; min-height: 32px; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #5c1f2a 0%, #1a2332 100%); display: flex; align-items: center; justify-content: center; margin-top: 4px;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-xl mb-2" style="color: #1a2332;">Adolescentes y adultos</h3>
+                      <p class="text-base leading-relaxed" style="color: #2d3748;">Desde 15 años en adelante, con objetivos claros de aprendizaje.</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4">
+                    <div style="min-width: 32px; min-height: 32px; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #5c1f2a 0%, #1a2332 100%); display: flex; align-items: center; justify-content: center; margin-top: 4px;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-xl mb-2" style="color: #1a2332;">Personas que buscan inglés académico o profesional</h3>
+                      <p class="text-base leading-relaxed" style="color: #2d3748;">Estudiantes preparándose para la universidad, exámenes oficiales, o profesionales que necesitan inglés en su trabajo.</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4">
+                    <div style="min-width: 32px; min-height: 32px; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #5c1f2a 0%, #1a2332 100%); display: flex; align-items: center; justify-content: center; margin-top: 4px;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-xl mb-2" style="color: #1a2332;">Personas que quieren aprender sin miedo a equivocarse</h3>
+                      <p class="text-base leading-relaxed" style="color: #2d3748;">Si prefieres un espacio individual donde puedas practicar sin presión ni juicios, estas clases son para ti.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Visual Separator -->
+          <div class="w-full px-6 py-12">
+            <div class="max-w-5xl mx-auto">
+              <div style="height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(26, 35, 50, 0.12) 50%, transparent 100%);"></div>
+            </div>
+          </div>
+
+          <!-- Trust & Credibility Section -->
+          <section class="w-full px-6 py-16 geometric-bg">
+            <div class="max-w-5xl mx-auto">
+              <h2 class="font-heading font-bold text-center mb-12 fade-in-scale" style="font-size: 2.5rem; color: #1a2332;">Por qué confiar en estas clases</h2>
+              
+              <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8 rounded-lg card-hover fade-in-left stagger-1" style="background: linear-gradient(135deg, #ffffff 0%, #fdfcfa 100%); border: 2px solid rgba(92, 31, 42, 0.1);">
+                  <div class="icon-circle mx-auto" style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(92, 31, 42, 0.15) 0%, rgba(26, 35, 50, 0.1) 100%);">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                    </svg>
+                  </div>
+                  <h3 class="font-heading font-semibold text-2xl mt-6 mb-3" style="color: #5c1f2a;">+6 años de experiencia</h3>
+                  <p class="text-base leading-relaxed" style="color: #2d3748;">Trabajando con adolescentes y adultos en inglés académico y profesional.</p>
+                </div>
+
+                <div class="text-center p-8 rounded-lg card-hover fade-in-left stagger-2" style="background: linear-gradient(135deg, #ffffff 0%, #fdfcfa 100%); border: 2px solid rgba(92, 31, 42, 0.1);">
+                  <div class="icon-circle mx-auto" style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(92, 31, 42, 0.15) 0%, rgba(26, 35, 50, 0.1) 100%);">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                      <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                  </div>
+                  <h3 class="font-heading font-semibold text-2xl mt-6 mb-3" style="color: #5c1f2a;">Licenciado en Ciencias de la Educación</h3>
+                  <p class="text-base leading-relaxed" style="color: #2d3748;">Formación profesional en enseñanza y Técnico en Inglés certificado.</p>
+                </div>
+
+                <div class="text-center p-8 rounded-lg card-hover fade-in-left stagger-3" style="background: linear-gradient(135deg, #ffffff 0%, #fdfcfa 100%); border: 2px solid rgba(92, 31, 42, 0.1);">
+                  <div class="icon-circle mx-auto" style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(92, 31, 42, 0.15) 0%, rgba(26, 35, 50, 0.1) 100%);">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                      <circle cx="9" cy="7" r="4"/>
+                      <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                  </div>
+                  <h3 class="font-heading font-semibold text-2xl mt-6 mb-3" style="color: #5c1f2a;">Clases 100% personalizadas</h3>
+                  <p class="text-base leading-relaxed" style="color: #2d3748;">Atención individual completa, adaptada a tu ritmo y tus objetivos específicos.</p>
+                </div>
+              </div>
             </div>
           </section>
         </div>
 
         <!-- ABOUT PAGE -->
-        <div id="page-about" class="w-full" style="display: none;">
+        <div id="page-about" class="w-full geometric-bg" style="display: none;">
           <section class="w-full py-16 px-6">
             <div class="max-w-4xl mx-auto">
-              <h2 class="page-title font-heading font-bold text-center mb-12">Sobre Mí</h2>
+              <h2 class="page-title font-heading font-bold text-center mb-12 fade-in-scale">Sobre Mí</h2>
               
-              <div class="mb-12 text-center">
+              <div class="mb-12 text-center fade-in-scale">
+                <div class="icon-circle mx-auto">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
                 <h3 class="font-heading text-3xl font-semibold mb-6" style="color: #5c1f2a;">Teacher Netza</h3>
                 <p class="text-lg mb-2" style="color: #5c1f2a; font-weight: 500;">25 años</p>
                 <p id="about-intro" class="leading-relaxed"></p>
+                <p class="microcopy mt-3">6 años de experiencia</p>
               </div>
 
               <div class="grid md:grid-cols-2 gap-6 mb-12">
-                <div class="info-card p-8 rounded border-l-4">
+                <div class="info-card p-8 rounded border-l-4 card-hover fade-in-left stagger-1">
                   <h4 class="font-semibold text-lg mb-3">Formación Académica</h4>
                   <ul class="space-y-2">
                     <li class="flex items-start gap-2">
@@ -395,13 +872,13 @@
                   </ul>
                 </div>
 
-                <div class="info-card p-8 rounded border-l-4">
+                <div class="info-card p-8 rounded border-l-4 card-hover fade-in-left stagger-2">
                   <h4 class="font-semibold text-lg mb-3">Experiencia</h4>
                   <p class="mb-4"><strong>6 años</strong> enseñando inglés a adolescentes y adultos con objetivos académicos y profesionales</p>
                 </div>
               </div>
 
-              <div class="info-card p-8 rounded border-l-4">
+              <div class="info-card p-8 rounded border-l-4 card-hover fade-in-scale">
                 <h4 class="font-semibold text-xl mb-4">Filosofía de Enseñanza</h4>
                 <ul class="space-y-3">
                   <li class="flex items-start gap-2">
@@ -435,35 +912,62 @@
               
               <div class="text-center mb-16">
                 <p class="text-lg font-semibold mb-2">Modalidades disponibles:</p>
-                <p class="text-lg">Clases online • Clases presenciales en Tepic, Santiago Ixcuintla</p>
+                <p class="text-lg">Clases online • Clases presenciales en Tepic, Santiago y Escuíndola</p>
               </div>
 
               <div class="grid md:grid-cols-3 gap-8">
-                <button onclick="showPage('beginner')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent">
+                <button onclick="showPage('beginner')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent fade-in-left stagger-1">
+                  <div class="icon-circle mx-auto">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M12 16v-4M12 8h.01"/>
+                    </svg>
+                  </div>
                   <h3 class="font-heading font-semibold text-2xl text-center mb-4 pb-4 border-b-2">Principiante</h3>
-                  <p class="text-center">Construye bases sólidas desde cero con programas estructurados</p>
+                  <p class="text-center mb-3">Construye bases sólidas desde cero con programas estructurados</p>
+                  <p class="microcopy text-center">Haz clic para ver programas</p>
                 </button>
 
-                <button onclick="showPage('intermediate')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent">
+                <button onclick="showPage('intermediate')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent fade-in-left stagger-2">
+                  <div class="icon-circle mx-auto">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                      <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                  </div>
                   <h3 class="font-heading font-semibold text-2xl text-center mb-4 pb-4 border-b-2">Intermedio</h3>
-                  <p class="text-center">Desarrolla fluidez académica y profesional con confianza</p>
+                  <p class="text-center mb-3">Desarrolla fluidez académica y profesional con confianza</p>
+                  <p class="microcopy text-center">Haz clic para ver programas</p>
                 </button>
 
-                <button onclick="showPage('advanced')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent">
+                <button onclick="showPage('advanced')" class="level-card card-hover p-8 rounded border-2 text-left cursor-pointer bg-transparent fade-in-left stagger-3">
+                  <div class="icon-circle mx-auto">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c1f2a" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  </div>
                   <h3 class="font-heading font-semibold text-2xl text-center mb-4 pb-4 border-b-2">Avanzado</h3>
-                  <p class="text-center">Domina el inglés académico y prepárate para exámenes oficiales</p>
+                  <p class="text-center mb-3">Domina el inglés académico y prep��rate para exámenes oficiales</p>
+                  <p class="microcopy text-center">Haz clic para ver programas</p>
                 </button>
               </div>
 
               <!-- Workshops Section -->
-              <div class="mt-20 pt-16 border-t-2" style="border-color: #1a2332;">
-                <h3 class="font-heading font-semibold text-3xl text-center mb-6" style="color: #1a2332;">Talleres / Habilidades Especiales</h3>
-                <p class="text-center text-lg mb-4 max-w-3xl mx-auto">
+              <div class="mt-20 pt-16 border-t-2 geometric-bg" style="border-color: #1a2332;">
+                <div class="icon-circle mx-auto fade-in-scale">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a2332" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                  </svg>
+                </div>
+                <h3 class="font-heading font-semibold text-3xl text-center mb-6 fade-in-scale" style="color: #1a2332;">Talleres / Habilidades Especiales</h3>
+                <p class="text-center text-lg mb-4 max-w-3xl mx-auto fade-in-scale">
                   Talleres intensivos dirigidos a estudiantes con nivel intermedio o avanzado que desean trabajar una habilidad específica del inglés.
                 </p>
-                <p class="text-center mb-12 max-w-3xl mx-auto">
-                  Son clases únicas de 2 a 4 horas, enfocadas en perfeccionar áreas concretas como pronunciación, listening, gramática avanzada o uso académico y profesional del idioma.
+                <p class="text-center mb-4 max-w-3xl mx-auto fade-in-scale">
+                  Son clases únicas de 2 a 4 horas, enfocadas en perfeccionar ��reas concretas como pronunciación, listening, gramática avanzada o uso académico y profesional del idioma.
                 </p>
+                <p class="microcopy text-center mb-12 fade-in-scale">Sesiones de 2 a 4 horas</p>
 
                 <div class="mb-12">
                   <h4 class="font-heading font-semibold text-2xl mb-6" style="color: #5c1f2a;">Pronunciación & Speaking</h4>
@@ -588,7 +1092,8 @@
                 ${beginnerPrograms.map(program => `
                   <div class="info-card p-6 rounded border-l-4">
                     <h3 class="font-semibold text-xl mb-2">${program.name}</h3>
-                    <p class="text-sm mb-4 opacity-75">${program.duration}</p>
+                    <p class="text-sm mb-3 opacity-75">${program.duration}</p>
+                    <p class="text-sm mb-4 leading-relaxed" style="color: #2d3748;">${program.description}</p>
                     <a href="${program.link}" target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
                       Preguntar por este programa
                     </a>
@@ -618,7 +1123,8 @@
                 ${intermediatePrograms.map(program => `
                   <div class="info-card p-6 rounded border-l-4">
                     <h3 class="font-semibold text-xl mb-2">${program.name}</h3>
-                    <p class="text-sm mb-4 opacity-75">${program.duration}</p>
+                    <p class="text-sm mb-3 opacity-75">${program.duration}</p>
+                    <p class="text-sm mb-4 leading-relaxed" style="color: #2d3748;">${program.description}</p>
                     <a href="${program.link}" target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
                       Preguntar por este programa
                     </a>
@@ -641,14 +1147,15 @@
             <div class="max-w-4xl mx-auto">
               <h2 class="page-title font-heading font-bold text-center mb-6">Nivel Avanzado</h2>
               <p class="text-center text-lg mb-12 max-w-2xl mx-auto">
-                Programas avanzados enfocados en inglés académico, comunicación profesional y preparación para exámenes oficiales como TOEFL e IELTS.
+                Programas avanzados enfocados en inglés acad����mico, comunicación profesional y preparación para exámenes oficiales como TOEFL e IELTS.
               </p>
 
               <div class="grid md:grid-cols-3 gap-6">
                 ${advancedPrograms.map(program => `
                   <div class="info-card p-6 rounded border-l-4">
                     <h3 class="font-semibold text-xl mb-2">${program.name}</h3>
-                    <p class="text-sm mb-4 opacity-75">${program.duration}</p>
+                    <p class="text-sm mb-3 opacity-75">${program.duration}</p>
+                    <p class="text-sm mb-4 leading-relaxed" style="color: #2d3748;">${program.description}</p>
                     <a href="${program.link}" target="_blank" rel="noopener noreferrer" class="program-button btn-primary inline-block text-white px-6 py-3 rounded font-semibold text-center w-full">
                       Preguntar por este programa
                     </a>
@@ -666,27 +1173,67 @@
         </div>
 
         <!-- CONTACT PAGE -->
-        <div id="page-contact" class="w-full" style="display: none;">
+        <div id="page-contact" class="w-full geometric-bg" style="display: none;">
           <section class="w-full px-6" style="min-height: calc(100% - 140px); display: flex; align-items: center; justify-content: center; padding-top: 80px; padding-bottom: 80px;">
             <div class="max-w-3xl mx-auto text-center">
-              <h2 class="page-title font-heading font-bold mb-8">Contacto</h2>
-              <p id="contact-main-message" class="mb-6 leading-relaxed"></p>
-              <p id="contact-note" class="mb-12 opacity-75"></p>
-              <a href="https://wa.me/523231116425" target="_blank" rel="noopener noreferrer" class="cta-button btn-primary inline-flex items-center gap-3 text-white px-10 py-4 rounded font-semibold text-lg">
+              <div class="icon-circle mx-auto fade-in-scale" style="width: 64px; height: 64px; margin-bottom: 1.5rem;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="#5c1f2a">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </div>
+              <h2 class="page-title font-heading font-bold mb-8 fade-in-scale">Contacto</h2>
+              <p id="contact-main-message" class="mb-6 leading-relaxed fade-in-scale"></p>
+              <p id="contact-note" class="mb-8 opacity-75 fade-in-scale"></p>
+              <p class="microcopy mb-4 fade-in-scale">Respuesta rápida garantizada</p>
+              <a href="https://wa.me/523231116425" target="_blank" rel="noopener noreferrer" class="cta-button btn-primary inline-flex items-center gap-3 text-white px-10 py-4 rounded font-semibold text-lg fade-in-scale">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
+                Contactar por WhatsApp
               </a>
             </div>
           </section>
         </div>
 
         <!-- Footer -->
-        <footer id="footer" class="w-full py-6 px-6 text-center" style="color: #f5f1e8;">
-          <p>© 2025 Teacher Netza – Clases Individuales de Inglés</p>
+        <footer id="footer" class="w-full py-10 px-6" style="color: #f5f1e8;">
+          <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+              <div class="text-center md:text-left">
+                <h3 class="font-heading font-bold text-2xl mb-3">Teacher Netza</h3>
+                <p class="text-base opacity-90">Clases Individuales de Inglés</p>
+                <p class="text-sm mt-2 opacity-75">Inglés académico y profesional</p>
+              </div>
+
+              <div class="text-center">
+                <h4 class="font-semibold text-lg mb-3">Ubicaciones</h4>
+                <p class="text-base opacity-90 mb-1">Tepic</p>
+                <p class="text-base opacity-90 mb-1">Santiago Ixcuintla</p>
+                <p class="text-base opacity-90 mb-1">Escuinapa</p>
+                <p class="text-base opacity-90 mt-2">Clases Online</p>
+              </div>
+
+              <div class="text-center md:text-right">
+                <h4 class="font-semibold text-lg mb-3">Contacto</h4>
+                <a href="https://wa.me/523231116425" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-base opacity-90 hover:opacity-100 transition-opacity">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div style="height: 1px; background: rgba(245, 241, 232, 0.2); margin: 2rem 0;"></div>
+
+            <div class="text-center text-sm opacity-75">
+              <p>© 2025 Teacher Netza — Todos los derechos reservados</p>
+            </div>
+          </div>
         </footer>
       `;
       
+      // Top navigation event listeners
       document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
           const page = this.getAttribute('data-page');
@@ -694,10 +1241,52 @@
         });
       });
       
+      // Left navigation functionality
+      const navToggle = document.getElementById('nav-toggle');
+      const navSidebar = document.getElementById('nav-sidebar');
+      const navOverlay = document.getElementById('nav-overlay');
+      
+      function openNav() {
+        navSidebar.classList.add('open');
+        navOverlay.classList.add('visible');
+      }
+      
+      function closeNav() {
+        navSidebar.classList.remove('open');
+        navOverlay.classList.remove('visible');
+      }
+      
+      navToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (navSidebar.classList.contains('open')) {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });
+      
+      navOverlay.addEventListener('click', closeNav);
+      
+      // Left navigation menu items
+      document.querySelectorAll('.left-nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const page = this.getAttribute('data-nav-page');
+          showPage(page);
+          closeNav();
+          
+          // Update active state
+          document.querySelectorAll('.left-nav-item').forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
       window.showPage = showPage;
       
       onConfigChange(window.elementSdk?.config || defaultConfig);
       showPage('home');
+      
+      // Set initial active state
+      document.querySelector('.left-nav-item[data-nav-page="home"]')?.classList.add('active');
     }
 
     if (window.elementSdk) {
@@ -715,5 +1304,5 @@
       initPage();
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9aecdfcb00112b3d',t:'MTc2NTg3NDQwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9af4fece667c2b3d',t:'MTc2NTk1OTU2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
